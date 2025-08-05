@@ -8,7 +8,7 @@ body {
 h1, h2, h3 {
   text-align: center;
   color: #ffffff; /* White text for better contrast */
-
+}
 nav {
   display: flex;
   justify-content: center;
@@ -38,4 +38,5 @@ button {
   margin-bottom: 20px;
   color: white; /* text color */
 }
+
 
