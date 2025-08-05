@@ -9,6 +9,8 @@ h1, h2, h3 {
   text-align: center;
   color: #ffffff; /* White text for better contrast */
 }
+
+
 nav {
   display: flex;
   justify-content: center;
@@ -21,7 +23,7 @@ button {
   font-size: 16px;
   cursor: pointer;
   border-radius: 8px;            /* Rounded corners */
-  background-color: #4a3cff;     /* Slightly softer blue */
+  background-color: #2d05f5;     /* Slightly softer blue */
   border: none;                  /* Remove default border */
   color: white;
   box-shadow: 0 4px 8px rgba(74, 60, 255, 0.3); /* Soft shadow */
