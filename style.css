@@ -1,0 +1,41 @@
+body {
+  font-family: Arial, sans-serif;
+  background: rgb(56, 84, 209);
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  color: #ffffff; /* White text for better contrast */
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 8px;            /* Rounded corners */
+  background-color: #4a3cff;     /* Slightly softer blue */
+  border: none;                  /* Remove default border */
+  color: white;
+  box-shadow: 0 4px 8px rgba(74, 60, 255, 0.3); /* Soft shadow */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#form-container, #log-container {
+  max-width: 600px;
+  margin: 0 auto;
+  background: #2d05f5;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(255, 254, 254, 0.962);
+  margin-bottom: 20px;
+  color: white; /* text color */
+}
