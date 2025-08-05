@@ -5,10 +5,9 @@ body {
   padding: 20px;
 }
 
-h1 {
+h1, h2, h3 {
   text-align: center;
   color: #ffffff; /* White text for better contrast */
-}
 
 nav {
   display: flex;
@@ -39,3 +38,4 @@ button {
   margin-bottom: 20px;
   color: white; /* text color */
 }
+
