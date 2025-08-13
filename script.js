@@ -189,7 +189,16 @@ function showLog() {
 
   logs.reverse().forEach(log => {
     if (log.type === 'endurance') {
-      // existing endurance display code ...
+      logContainer.innerHTML += `
+        <div style="margin-bottom: 20px; padding: 10px; border-bottom: 1px solid #ccc;">
+          <strong>${log.date} - Endurance</strong><br>
+          <div><strong>Modality:</strong> ${log.modality || '-'}</div>
+          <div><strong>Distance:</strong> ${log.distance || '-'}</div>
+          <div><strong>Duration:</strong> ${log.duration || '-'}</div>
+          <div><strong>Effort/Zone:</strong> ${log.effort || '-'}</div>
+          ${log.notes ? `<em>Notes: ${log.notes}</em>` : ''}
+        </div>
+      `;
     } else if (log.type === 'strength') {
       // new strength display code
       let exercisesHTML = '';
