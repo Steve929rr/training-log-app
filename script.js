@@ -180,6 +180,9 @@ function saveWorkout(e) {
 
 // Display log
 function showLog() {
+  const logContainer = document.getElementById('log-container');
+  if (!logContainer) return;
+
   const logs = JSON.parse(localStorage.getItem('trainingLogs')) || [];
   logContainer.innerHTML = `<h2>Workout Log</h2>`;
   if (logs.length === 0) {
@@ -187,54 +190,57 @@ function showLog() {
     return;
   }
 
-  logs.reverse().forEach(log => {
+  logs.slice().reverse().forEach((log, index) => {
+    const logId = `log-${index}`;
+    let summary = `${log.date} - ${log.type.charAt(0).toUpperCase() + log.type.slice(1)}`;
+
+    let details = '';
     if (log.type === 'endurance') {
-      logContainer.innerHTML += `
-        <div style="margin-bottom: 20px; padding: 10px; border-bottom: 1px solid #ccc;">
-          <strong>${log.date} - Endurance</strong><br>
-          <div><strong>Modality:</strong> ${log.modality || '-'}</div>
-          <div><strong>Distance:</strong> ${log.distance || '-'}</div>
-          <div><strong>Duration:</strong> ${log.duration || '-'}</div>
-          <div><strong>Effort/Zone:</strong> ${log.effort || '-'}</div>
-          ${log.notes ? `<em>Notes: ${log.notes}</em>` : ''}
-        </div>
+      details = `
+        <div><strong>Modality:</strong> ${log.modality || '-'}</div>
+        <div><strong>Distance:</strong> ${log.distance || '-'}</div>
+        <div><strong>Duration:</strong> ${log.duration || '-'}</div>
+        <div><strong>Effort/Zone:</strong> ${log.effort || '-'}</div>
+        ${log.notes ? `<em>Notes: ${log.notes}</em>` : ''}
       `;
     } else if (log.type === 'strength') {
-      // new strength display code
       let exercisesHTML = '';
       if (log.exercises && Array.isArray(log.exercises)) {
         log.exercises.forEach((ex, i) => {
-          if (ex.name || ex.sets || ex.reps || ex.load) {
-            exercisesHTML += `
-              <div>
-                <strong>Exercise ${i + 1}:</strong> ${ex.name || '-'}<br>
-                Sets: ${ex.sets || '-'}, Reps: ${ex.reps || '-'}, Load: ${ex.load || '-'}
-              </div><br>
-            `;
-          }
+          exercisesHTML += `<div><strong>Exercise ${i + 1}:</strong> ${ex.name || '-'} | Sets: ${ex.sets || '-'}, Reps: ${ex.reps || '-'}, Load: ${ex.load || '-'}</div>`;
         });
       }
-
-      logContainer.innerHTML += `
-        <div style="margin-bottom: 20px; padding: 10px; border-bottom: 1px solid #ccc;">
-          <strong>${log.date} - Strength</strong><br>
-          ${exercisesHTML}
-          ${log.notes ? `<em>Notes: ${log.notes}</em>` : ''}
-        </div>
-      `;
+      details = `${exercisesHTML}${log.notes ? `<em>Notes: ${log.notes}</em>` : ''}`;
     } else if (log.type === 'functional') {
-      logContainer.innerHTML += `
-    <div style="margin-bottom: 20px; padding: 10px; border-bottom: 1px solid #ccc;">
-      <strong>${log.date} - Functional Workout</strong><br>
-      <div><strong>Type:</strong> ${log.format || '-'}</div>
-      <div><strong>Duration / Rounds:</strong> ${log.duration || '-'}</div>
-      <div><strong>Exercises:</strong><br><pre>${log.exercises || '-'}</pre></div>
-      ${log.notes ? `<em>Notes: ${log.notes}</em>` : ''}
-    </div>
-  `;
-}
+      details = `
+        <div><strong>Type:</strong> ${log.format || '-'}</div>
+        <div><strong>Duration / Rounds:</strong> ${log.duration || '-'}</div>
+        <div><strong>Exercises:</strong><pre>${log.exercises || '-'}</pre></div>
+        ${log.notes ? `<em>Notes: ${log.notes}</em>` : ''}
+      `;
+    }
 
+    logContainer.innerHTML += `
+      <div style="margin-bottom: 15px; border-bottom: 1px solid #ccc; padding: 10px;">
+        <button class="toggle-details" data-target="${logId}">${summary}</button>
+        <div id="${logId}" class="log-details" style="display:none; margin-top:10px;">
+          ${details}
+        </div>
+      </div>
+    `;
+  });
 
+  // Attach toggle functionality
+  const toggleButtons = document.querySelectorAll('.toggle-details');
+  toggleButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = document.getElementById(btn.dataset.target);
+      if (target.style.display === 'none') {
+        target.style.display = 'block';
+      } else {
+        target.style.display = 'none';
+      }
+    });
   });
 }
 
@@ -242,10 +248,22 @@ function showLog() {
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('log-strength').addEventListener('click', () => showForm('strength'));
-  document.getElementById('log-functional').addEventListener('click', () => showForm('functional'));
-  document.getElementById('log-endurance').addEventListener('click', () => showForm('endurance'));
+  const strengthBtn = document.getElementById('log-strength');
+  const functionalBtn = document.getElementById('log-functional');
+  const enduranceBtn = document.getElementById('log-endurance');
+
+  if (strengthBtn) strengthBtn.addEventListener('click', () => showForm('strength'));
+  if (functionalBtn) functionalBtn.addEventListener('click', () => showForm('functional'));
+  if (enduranceBtn) enduranceBtn.addEventListener('click', () => showForm('endurance'));
+
   showLog();
 });
+
+// At the bottom of your script or in DOMContentLoaded
+document.addEventListener("DOMContentLoaded", () => {
+  showForm("endurance");  // or "strength" or "functional"
+});
+
+
 
 
