@@ -3,6 +3,8 @@ body {
   background: rgb(56, 84, 209);
   margin: 0;
   padding: 20px;
+  background-image: url('Background1.jpg');
+  background-size: cover; /* Ensure the background image covers the entire area */
 }
 
 h1, h2, h3 {
@@ -33,12 +35,46 @@ button {
 #form-container, #log-container {
   max-width: 600px;
   margin: 0 auto;
-  background: #2d05f5;
+  background-color: rgba(45, 5, 245, 0.75); /* translucent blue background */
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(255, 254, 254, 0.962);
   margin-bottom: 20px;
-  color: white; /* text color */
+  color: white; /* text stays fully solid */
 }
 
+
+.page-links {
+  text-align: center; /* centers inline elements like <a> */
+  margin-top: 10px;   /* optional spacing */
+}
+
+.page-links a {
+  margin: 0 10px;     /* space between links */
+  display: inline-block; /* ensures margin works reliably */
+  text-decoration: underline; /* optional styling */
+  color: #fff;           /* optional color */
+  font-weight: bold;     /* optional styling */
+}
+
+.page-links a:hover {
+  color: darkblue;           /* hover effect */
+}
+
+.snapshot-columns {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  flex-wrap: wrap; /* wrap on smaller screens */
+}
+
+.snapshot-column {
+  flex: 1; /* equal width for each column */
+  min-width: 180px; /* prevent columns from getting too small */
+  background: rgba(45, 5, 245, 0.75); /* match container style with transparency */
+  padding: 15px;
+  border-radius: 10px;
+  color: white;
+  box-shadow: 0 2px 5px rgba(255, 255, 255, 0.7);
+}
 
